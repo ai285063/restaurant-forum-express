@@ -1,11 +1,17 @@
 <h1>餐廳後台</h1>
+<div class="d-flex">
+  <a href="/admin/restaurants">Restaurants</a>
+  <span>&nbsp;|&nbsp;</span>
+  <a href="/admin/users">Users</a>
+</div>
 
-<a href='/admin/restaurants/create'>
+<br />
+<a href="/admin/restaurants/create">
   <button type="button" class="btn btn-primary">New Restaurant</button>
 </a>
 
-<br/>
-<br/>
+<br />
+<br />
 
 <table class="table">
   <thead class="thead-dark">
@@ -17,25 +23,29 @@
   </thead>
   <tbody>
     {{#each restaurants}}
-    <tr>
-      <th scope="row">{{this.id}}</th>
-      <td>{{this.name}}</td>
-      <td>
-        <button type="button" class="btn btn-link">
-          <a href="/admin/restaurants/{{this.id}}">
-          Show
-          </a>
-        </button>
-        <button type="button" class="btn btn-link">
-          <a href="/admin/restaurants/{{this.id}}/edit">
-            Edit
-          </a>
-        </button>
-        <form action="/admin/restaurants/{{this.id}}?_method=DELETE" method="POST" style="display: inline;">
-          <button type="submit" class="btn btn-link">Delete</button>
-        </form>
-      </td>
-    </tr>
+      <tr>
+        <th scope="row">{{this.id}}</th>
+        <td>{{this.name}}</td>
+        <td>
+          <button type="button" class="btn btn-link">
+            <a href="/admin/restaurants/{{this.id}}">
+              Show
+            </a>
+          </button>
+          <button type="button" class="btn btn-link">
+            <a href="/admin/restaurants/{{this.id}}/edit">
+              Edit
+            </a>
+          </button>
+          <form
+            action="/admin/restaurants/{{this.id}}?_method=DELETE"
+            method="POST"
+            style="display: inline;"
+          >
+            <button type="submit" class="btn btn-link">Delete</button>
+          </form>
+        </td>
+      </tr>
     {{/each}}
   </tbody>
 </table>

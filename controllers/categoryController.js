@@ -9,9 +9,9 @@ const categoryController = {
       if (req.params.id) {
         Category.findByPk(req.params.id)
           .then((category) => {
-            return res.render('admin/categories', { 
-              categories: categories, 
-              category: category.toJSON() 
+            return res.render('admin/categories', {
+              categories: categories,
+              category: category.toJSON()
             })
           })
       } else {
@@ -45,6 +45,15 @@ const categoryController = {
             })
         })
     }
+  },
+  deleteCategory: (req, res) => {
+    return Category.findByPk(req.params.id)
+      .then((category) => {
+        category.destroy()
+          .then((category) => {
+            res.redirect('/admin/categories')
+          })
+      })
   }
 }
 module.exports = categoryController

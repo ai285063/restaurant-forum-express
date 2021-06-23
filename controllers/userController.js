@@ -8,7 +8,6 @@ const userController = {
   },
 
   signUp: (req, res) => {
-    // confirm password
     if (req.body.passwordCheck !== req.body.password) {
       req.flash('error_messages', '兩次密碼輸入不同！')
       return res.redirect('/signup')
@@ -44,6 +43,15 @@ const userController = {
     req.flash('success_messages', '登出成功！')
     req.logout()
     res.redirect('/signin')
+  },
+  getUser: (req, res) => {
+    console.log(req.params.id)
+    return User.findByPk(req.params.id)
+      .then(user => {
+        return res.render('profile', {
+          user: user.toJSON()
+        })
+      })
   }
 }
 

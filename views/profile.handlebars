@@ -1,0 +1,18 @@
+<div class="container d-flex justify-content-center my-5 bg-white border rounded">
+  <div class="row my-3" style="width: 90%">
+    <div class="col-md-3 d-flex justify-content-center align-items-center">
+      {{#if user.img}}
+        <img class="" src="" alt="Card image cap">
+      {{else}}
+        <i class="fas fa-user-circle fa-4x"></i>
+      {{/if}}
+    </div>
+    <div class="col-md-9">
+      <div class="">
+        <h4 class="">{{user.name}}</h4>
+        <p class="">{{user.email}}</p>
+        <a href="/users/:id/edit" class="btn btn-outline-primary">Edit</a>
+      </div>
+    </div>
+  </div>
+</div>

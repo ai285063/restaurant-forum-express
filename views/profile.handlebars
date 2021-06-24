@@ -1,8 +1,8 @@
 <div class="container d-flex justify-content-center my-5 bg-white border rounded">
   <div class="row my-3" style="width: 90%">
     <div class="col-md-3 d-flex justify-content-center align-items-center">
-      {{#if user.img}}
-        <img class="" src="" alt="Card image cap">
+      {{#if user.image}}
+        <img src="{{user.image}}" alt="Card image cap" style="width: 150px; height: 150px; border-radius: 50%">
       {{else}}
         <i class="fas fa-user-circle fa-4x"></i>
       {{/if}}

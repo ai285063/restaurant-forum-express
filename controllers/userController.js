@@ -1,6 +1,8 @@
 const bcrypt = require('bcryptjs')
 const db = require('../models')
 const User = db.User
+const Comment = db.Comment
+const Restaurant = db.Restaurant
 const helpers = require('../_helpers')
 
 const imgur = require('imgur-node-api')
@@ -49,12 +51,14 @@ const userController = {
     res.redirect('/signin')
   },
   getUser: (req, res) => {
-    const thisUser = helpers.getUser(req)
-    return User.findByPk(req.params.id)
-      .then(user => {
+    const user = helpers.getUser(req)
+    return User.findByPk(req.params.id, {
+      include: [{ model: Comment, include: [Restaurant] }]
+    })
+      .then(viewUser => {
         return res.render('profile', {
-          thisUser: thisUser,
-          user: user.toJSON()
+          viewUser: viewUser.toJSON(),
+          user: user
         })
       })
   },

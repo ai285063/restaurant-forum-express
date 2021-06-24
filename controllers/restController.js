@@ -50,17 +50,31 @@ const restController = {
       })
     })
   },
-  getRestaurant: (req, res) => {
-    return Restaurant.findByPk(req.params.id, {
-      include: [
-        Category,
-        { model: Comment, include: [User] }
-      ]
-    }).then(restaurant => {
+  getRestaurant: async (req, res) => {
+    try {
+      const restaurant = await Restaurant.findByPk(req.params.id, {
+        include: [
+          Category,
+          { model: Comment, include: [User] }
+        ]
+      })
+      await restaurant.increment({ viewCounts: 1 })
       return res.render('restaurant', {
         restaurant: restaurant.toJSON()
       })
-    })
+    } catch (err) {
+      console.log(`Error: ${err}`)
+    }
+    // return Restaurant.findByPk(req.params.id, {
+    //   include: [
+    //     Category,
+    //     { model: Comment, include: [User] }
+    //   ]
+    // }).then(restaurant => {
+    //   return res.render('restaurant', {
+    //     restaurant: restaurant.toJSON()
+    //   })
+    // })
   },
   getFeeds: (req, res) => {
     return Promise.all([

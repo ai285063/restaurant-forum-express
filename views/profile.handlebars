@@ -1,0 +1,31 @@
+<div class="container d-flex justify-content-center my-5 bg-white border rounded">
+  <div class="row my-3" style="width: 90%">
+    <div class="col-md-3 d-flex justify-content-center align-items-center">
+      {{#if viewUser.image}}
+        <img src="{{viewUser.image}}" alt="Card image cap" style="width: 150px; height: 150px; border-radius: 50%">
+      {{else}}
+        <i class="fas fa-user-circle fa-4x"></i>
+      {{/if}}
+    </div>
+    <div class="col-md-9">
+      <h4 class="">{{viewUser.name}}</h4>
+      <p class="">{{viewUser.email}}</p>
+      {{#ifCond viewUser.id user.id}}
+        <a href="/users/{{user.id}}/edit" class="btn btn-outline-primary">Edit</a>
+      {{/ifCond}}
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header font-weight-bold">
+    已評論餐廳
+  </div>
+  <div class="card-body">
+    {{#each viewUser.Comments}}
+      <a href='/restaurants/{{this.Restaurant.id}}'>
+        <img src="{{this.Restaurant.image}}" alt="Restaurant img" style="width: 150px; height: 150px; padding: 0.25rem">
+      </a>
+    {{/each}}
+  </div>
+</div>

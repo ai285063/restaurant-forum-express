@@ -3,6 +3,7 @@ const Restaurant = db.Restaurant
 const Category = db.Category
 const Comment = db.Comment
 const User = db.User
+const helpers = require('../_helpers')
 
 const pageLimit = 10
 
@@ -32,7 +33,8 @@ const restController = {
       const data = result.rows.map(r => ({
         ...r.dataValues,
         description: r.dataValues.description.substring(0, 50),
-        categoryName: r.dataValues.Category.name
+        categoryName: r.dataValues.Category.name,
+        isFavorited: helpers.getUser(req).FavoritedRestaurants.map(d => d.id).includes(r.id)
       }))
       Category.findAll({
         raw: true,
@@ -55,26 +57,19 @@ const restController = {
       const restaurant = await Restaurant.findByPk(req.params.id, {
         include: [
           Category,
+          { model: User, as: 'FavoritedUsers' },
           { model: Comment, include: [User] }
         ]
       })
       await restaurant.increment({ viewCounts: 1 })
+      const isFavorited = await restaurant.FavoritedUsers.map(d => d.id).includes(helpers.getUser(req).id)
       return res.render('restaurant', {
-        restaurant: restaurant.toJSON()
+        restaurant: restaurant.toJSON(),
+        isFavorited: isFavorited
       })
     } catch (err) {
       console.log(`Error: ${err}`)
     }
-    // return Restaurant.findByPk(req.params.id, {
-    //   include: [
-    //     Category,
-    //     { model: Comment, include: [User] }
-    //   ]
-    // }).then(restaurant => {
-    //   return res.render('restaurant', {
-    //     restaurant: restaurant.toJSON()
-    //   })
-    // })
   },
   getFeeds: (req, res) => {
     return Promise.all([

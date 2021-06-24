@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs')
 const db = require('../models')
 const User = db.User
+const helpers = require('../_helpers')
 
 const userController = {
   signUpPage: (req, res) => {
@@ -45,10 +46,19 @@ const userController = {
     res.redirect('/signin')
   },
   getUser: (req, res) => {
-    console.log(req.params.id)
+    const thisUser = helpers.getUser(req)
     return User.findByPk(req.params.id)
       .then(user => {
         return res.render('profile', {
+          thisUser: thisUser,
+          user: user.toJSON()
+        })
+      })
+  },
+  editUser: (req, res) => {
+    return User.findByPk(req.params.id)
+      .then(user => {
+        return res.render('editProfile', {
           user: user.toJSON()
         })
       })

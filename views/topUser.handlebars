@@ -26,11 +26,17 @@
       <span class="badge badge-secondary">追蹤人數：{{this.FollowerCount}}</span>
       <p>
         {{#if this.isFollowed }}
-          <form action="/following/{{this.id}}?_method=DELETE" method="POST" style="display: contents;"><button
-              type="submit" class="btn btn-danger">取消追蹤</button></form>
+          {{#ifCond this.id ../viewingUserId}}
+          {{else}}
+            <form action="/following/{{this.id}}?_method=DELETE" method="POST" style="display: contents;"><button
+                type="submit" class="btn btn-danger">取消追蹤</button></form>
+          {{/ifCond}}
         {{else}}
-          <form action="/following/{{this.id}}" method="POST" style="display: contents;"><button type="submit"
+          {{#ifCond this.id ../viewingUserId}}
+          {{else}}
+            <form action="/following/{{this.id}}" method="POST" style="display: contents;"><button type="submit"
               class="btn btn-primary">追蹤</button></form>
+          {{/ifCond}}
         {{/if}}
       </p>
     </div>

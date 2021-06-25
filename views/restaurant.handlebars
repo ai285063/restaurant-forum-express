@@ -4,7 +4,7 @@
     <p>[{{restaurant.Category.name}}]</p>
   </div>
   <div class="col-md-4">
-    <img class="img-responsive center-block" src="{{restaurant.image}}" style="width: 250px;margin-bottom: 25px;">
+    <img class="img-responsive" src="{{restaurant.image}}" style="width: 250px;margin-bottom: 25px;">
     <div class="well">
       <ul class="list-unstyled">
         <li><strong>Opening Hour:</strong> {{restaurant.opening_hours}}</li>
@@ -15,12 +15,23 @@
   </div>
   <div class="col-md-8">
     <p>{{restaurant.description}}</p>
-    <a href="/restaurants/{{restaurant.id}}/dashboard" class="btn btn-primary">Dashboard</a>
-    {{#if isFavorited }}
-      <form action="/favorite/{{restaurant.id}}?_method=DELETE" method="POST" style="display: contents;"><button type="submit" class="btn btn-danger">移除最愛</button></form>
-    {{else}}
-      <form action="/favorite/{{restaurant.id}}" method="POST" style="display: contents;"><button type="submit" class="btn btn-primary">加到最愛</button></form>
-    {{/if}}
+    <div class="d-flex">
+      <a href="/restaurants/{{restaurant.id}}/dashboard" class="btn btn-primary">Dashboard</a>
+      <div class="ml-2">
+        {{#if isFavorited }}
+          <form action="/favorite/{{restaurant.id}}?_method=DELETE" method="POST" style="display: contents;"><button type="submit" class="btn btn-danger">移除最愛</button></form>
+        {{else}}
+          <form action="/favorite/{{restaurant.id}}" method="POST" style="display: contents;"><button type="submit" class="btn btn-primary form-inline">加到最愛</button></form>
+        {{/if}}
+      </div>
+      <div class="ml-2">
+        {{#if isLiked}}
+          <form action="/like/{{restaurant.id}}?_method=DELETE" method="POST"><button type="submit" class="btn btn-danger">Unlike</button></form>
+        {{else}}
+          <form action="/like/{{restaurant.id}}" method="POST"><button type="submit" class="btn btn-primary form-inline">Like</button></form>
+        {{/if}}
+      </div>
+    </div>
   </div>
   <hr>
 </div>

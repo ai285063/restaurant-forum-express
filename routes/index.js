@@ -32,6 +32,7 @@ module.exports = (app, passport) => {
   app.get('/logout', userController.logout)
 
   app.get('/restaurants/feeds', authenticated, restController.getFeeds)
+  app.get('/restaurants/top', authenticated, restController.getTop10)
   app.get('/restaurants/:id', authenticated, restController.getRestaurant)
   app.get('/restaurants/:id/dashboard', authenticated, restController.getDashboard)
 

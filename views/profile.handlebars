@@ -10,9 +10,19 @@
     <div class="col-md-9">
       <h4 class="">{{viewUser.name}}</h4>
       <p class="">{{viewUser.email}}</p>
+      <ul>
+        <li>已評論餐廳</li>
+        <li>收藏的餐廳</li>
+        <li>followings (追蹤者)</li>
+        <li>followers (追隨者)</li>
+      </ul>
       {{#ifCond viewUser.id user.id}}
         <a href="/users/{{user.id}}/edit" class="btn btn-outline-primary">Edit</a>
+      {{else}}
+        <form action="/following/{{viewUser.id}}" method="POST" style="display: contents;"><button type="submit"
+              class="btn btn-primary">追蹤</button></form>
       {{/ifCond}}
+      
     </div>
   </div>
 </div>
